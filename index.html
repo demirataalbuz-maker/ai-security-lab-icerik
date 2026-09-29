@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>AI Security</title>
 <meta name="description" content="OWASP LLM Top 10 çalışma uygulaması">
-<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="AI Security">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
@@ -17,7 +16,7 @@
 /* iOS tasarım dili — sistem renkleri, sistem yazı tipi, gruplanmış kartlar.
    Değişken adları eski temayla aynı tutuldu (JS satır içi stiller bunları kullanıyor). */
 :root{
-  color-scheme:light dark;
+  color-scheme:dark;
   --ink:#f2f2f7;            /* systemGroupedBackground */
   --card:#ffffff;           /* secondarySystemGroupedBackground */
   --panel:rgba(249,249,249,.94);
@@ -37,7 +36,7 @@
   --r:12px;
   --shadow:0 1px 0 rgba(0,0,0,.02);
 }
-@media (prefers-color-scheme:dark){
+@media all{
   :root{
     --ink:#000000; --card:#1c1c1e; --panel:rgba(22,22,24,.86);
     --sunk:rgba(118,118,128,.24);
@@ -99,7 +98,7 @@ main{flex:1;padding:6px 16px calc(96px + env(safe-area-inset-bottom,0px));max-wi
   padding:3px 2px 4px;display:flex;flex-direction:column;align-items:center;gap:2px;
   cursor:pointer;min-height:49px;justify-content:center;
 }
-@media (prefers-color-scheme:dark){ .tab{color:#8e8e93} }
+.tab{color:#8e8e93}
 .tab svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .tab[aria-selected="true"]{color:var(--accent)}
 .tab[aria-selected="true"] svg{stroke-width:2.1}
