@@ -5,11 +5,14 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>AI Security</title>
 <meta name="description" content="OWASP LLM Top 10 çalışma uygulaması">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0e0d12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="AI Security">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,600..900&display=swap">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="icon" type="image/png" href="apple-touch-icon.png">
 <style>
@@ -37,16 +40,18 @@
   --shadow:0 1px 0 rgba(0,0,0,.02);
 }
 @media all{
+  /* irzubal "Mor Baski" gece baskisi: siyah kagit, mor vurgu */
   :root{
-    --ink:#000000; --card:#1c1c1e; --panel:rgba(22,22,24,.86);
-    --sunk:rgba(118,118,128,.24);
-    --line:rgba(84,84,88,.65); --line-soft:rgba(84,84,88,.45);
-    --text:#ffffff; --soft:rgba(235,235,245,.82); --dim:rgba(235,235,245,.6);
-    --accent:#0a84ff; --accent-dim:#409cff; --accent-ink:#ffffff;
-    --good:#30d158; --warn:#ff9f0a; --bad:#ff453a;
-    --c1:#0a84ff; --c2:#5e5ce6; --c3:#ff375f; --c4:#ff9f0a; --c5:#bf5af2;
-    --c6:#40c8e0; --c7:#ff453a; --c8:#30d158; --c9:#64d2ff; --c10:#ac8e68;
-    --code:#2c2c2e;
+    --ink:#0e0d12; --card:#17151c; --panel:rgba(19,17,24,.86);
+    --sunk:rgba(172,160,196,.13);
+    --line:rgba(236,231,221,.14); --line-soft:rgba(236,231,221,.09);
+    --text:#ece7dd; --soft:#cfc9bf; --dim:#8a8494;
+    --accent:#c07cff; --accent-dim:#a860f0; --accent-ink:#0e0d12;
+    --good:#7fd6a4; --warn:#ffc15e; --bad:#ff4a3d;
+    --c1:#ff4a3d; --c2:#4a86ff; --c3:#c07cff; --c4:#ffc15e; --c5:#ff6fb5;
+    --c6:#4fd1c5; --c7:#ff8a4c; --c8:#7fd6a4; --c9:#8f94ff; --c10:#ff7089;
+    --code:#0b0a0e;
+    --display:"Anybody","Arial Narrow",var(--sans);
   }
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -67,9 +72,9 @@ body{
   padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px;
   display:flex; align-items:center; gap:10px; min-height:44px;
 }
-.brand{font-weight:600;font-size:17px;letter-spacing:-.41px;display:flex;align-items:center;gap:8px}
+.brand{font-family:var(--display);font-stretch:85%;font-weight:800;font-size:19px;letter-spacing:0;display:flex;align-items:center;gap:8px}
 .brand .appicon{width:26px;height:26px;border-radius:6px;flex:none;
-  background:linear-gradient(160deg,#5ac8fa,#007aff 55%,#5856d6);
+  background:linear-gradient(160deg,#ff4a3d,#c07cff 50%,#4a86ff);
   display:grid;place-items:center;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.08)}
 .brand .appicon svg{width:15px;height:15px;fill:#fff}
 .brand b{font-weight:600;color:inherit}
@@ -104,7 +109,7 @@ main{flex:1;padding:6px 16px calc(96px + env(safe-area-inset-bottom,0px));max-wi
 .tab[aria-selected="true"] svg{stroke-width:2.1}
 
 /* ---------- ortak ---------- */
-h2{font-size:34px;font-weight:700;letter-spacing:.37px;line-height:1.2;margin:10px 0 2px;text-wrap:balance}
+h2{font-family:var(--display);font-stretch:80%;font-size:36px;font-weight:800;letter-spacing:-.2px;line-height:1.2;margin:10px 0 2px;text-wrap:balance}
 .sub{color:var(--dim);font-size:15px;letter-spacing:-.24px;line-height:1.4;margin:0 0 16px}
 .card{background:var(--card);border:0;border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
 .card + .card{margin-top:20px}
@@ -119,7 +124,7 @@ button{font-family:inherit}
   cursor:pointer;min-height:50px;transition:opacity .15s,transform .15s;
 }
 .btn:active{opacity:.6;transform:scale(.98)}
-.btn.primary{background:var(--accent);color:#fff}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
 .btn.ghost{background:transparent;color:var(--accent);font-weight:400}
 .btn.full{width:100%}
 .row{display:flex;gap:10px;flex-wrap:wrap}
@@ -170,13 +175,13 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),li
   color:var(--dim);flex:none;margin-top:-1px;letter-spacing:0;
 }
 .opt.correct{background:color-mix(in srgb,var(--good) 12%,var(--card))}
-.opt.correct kbd{background:var(--good);color:#fff}
+.opt.correct kbd{background:var(--good);color:var(--accent-ink)}
 .opt.wrong{background:color-mix(in srgb,var(--bad) 10%,var(--card))}
-.opt.wrong kbd{background:var(--bad);color:#fff}
+.opt.wrong kbd{background:var(--bad);color:var(--accent-ink)}
 .opt.muted{opacity:.4}
 .opt[disabled]{cursor:default}
 .verdict{margin-top:20px;padding:16px;border-radius:12px;border:0;background:var(--card)}
-.verdict h3{margin:0 0 8px;font-size:20px;font-weight:700;letter-spacing:.38px}
+.verdict h3{margin:0 0 8px;font-family:var(--display);font-stretch:85%;font-size:22px;font-weight:800;letter-spacing:0}
 .verdict.ok h3{color:var(--good)}
 .verdict.no h3{color:var(--bad)}
 .sureq{font-size:15px;color:var(--soft);margin:0 0 12px;letter-spacing:-.24px}
@@ -202,7 +207,7 @@ select{background-image:linear-gradient(45deg,transparent 50%,var(--dim) 50%),li
   border-radius:99px;padding:7px 14px;font-size:15px;font-weight:500;letter-spacing:-.24px;cursor:pointer;min-height:34px;
   transition:background .15s,color .15s;
 }
-.chip[aria-pressed="true"]{background:var(--accent);color:#fff;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:600}
 .empty{color:var(--dim);font-size:15px;padding:28px 4px;text-align:center}
 .count{font-size:13px;color:var(--dim);margin:2px 0 10px;text-transform:uppercase;letter-spacing:-.08px;font-family:var(--sans)}
 .report{white-space:pre-wrap;font-size:15px;line-height:1.5;letter-spacing:-.24px;color:var(--soft)}
@@ -214,7 +219,7 @@ a.link{color:var(--accent);text-decoration:none;font-weight:400;font-size:15px}
 .selchip{
   position:fixed;left:50%;transform:translateX(-50%);
   bottom:calc(72px + env(safe-area-inset-bottom,0px));z-index:40;
-  background:var(--accent);color:#fff;border:0;border-radius:99px;
+  background:var(--accent);color:var(--accent-ink);border:0;border-radius:99px;
   padding:12px 20px;font-family:var(--sans);font-weight:600;font-size:15px;
   box-shadow:0 10px 30px rgba(0,0,0,.22);max-width:calc(100% - 32px);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;
