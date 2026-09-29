@@ -227,6 +227,58 @@ a.link{color:var(--accent);text-decoration:none;font-weight:400;font-size:15px}
 #view > *{animation:rise .28s cubic-bezier(.2,.8,.2,1) both}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ================= KIVILCIM (maskot) ================= */
+main{padding-bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+.kv-dock{position:fixed;right:10px;bottom:calc(64px + env(safe-area-inset-bottom,0px));z-index:35;
+  width:74px;height:86px;border:0;background:none;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.kv-dock svg{width:100%;height:100%;overflow:visible}
+.kv-scale{transform-origin:100px 205px;transition:transform .7s cubic-bezier(.3,1.4,.5,1),filter .7s}
+.kv-flick{transform-origin:100px 205px;animation:kvFlick 1.6s ease-in-out infinite}
+.kv-flick2{transform-origin:100px 205px;animation:kvFlick2 1.1s ease-in-out infinite}
+@keyframes kvFlick{0%,100%{transform:scale(1,1) skewX(0)}30%{transform:scale(.98,1.04) skewX(-2deg)}60%{transform:scale(1.02,.97) skewX(2deg)}}
+@keyframes kvFlick2{0%,100%{transform:scale(1,1)}50%{transform:scale(.95,1.07) skewX(-3deg)}}
+.kv-body{transform-origin:100px 205px}
+.kv-body.happy{animation:kvHop 2.4s cubic-bezier(.3,0,.4,1) infinite}
+@keyframes kvHop{0%,60%,100%{transform:translateY(0)}72%{transform:translateY(-16px)}80%{transform:translateY(-16px)}92%{transform:translateY(0) scale(1.05,.93)}}
+.kv-body.wait,.kv-body.new{animation:kvSway 3s ease-in-out infinite}
+@keyframes kvSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.kv-body.sulk{transform:scaleX(-1) rotate(-4deg)}
+.kv-body.out{animation:kvDroop 4s ease-in-out infinite}
+@keyframes kvDroop{0%,100%{transform:translateY(0)}50%{transform:translateY(3px) scale(1.02,.97)}}
+.kv-body.jump{animation:kvJump .6s cubic-bezier(.3,0,.4,1)}
+@keyframes kvJump{0%,100%{transform:translateY(0)}45%{transform:translateY(-26px) rotate(-6deg)}75%{transform:translateY(0) scale(1.08,.9)}}
+.kv-body.shake{animation:kvShake .5s}
+@keyframes kvShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-3px)}}
+.kv-pupils{animation:kvLook 4s ease-in-out infinite}
+@keyframes kvLook{0%,35%{transform:translateX(0)}45%,60%{transform:translateX(-4px)}70%,85%{transform:translateX(4px)}100%{transform:translateX(0)}}
+.kv-eyes{transform-origin:100px 153px;animation:kvBlink 4.5s infinite}
+@keyframes kvBlink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.kv-spark{animation:kvRise 1.8s linear infinite;opacity:0}
+@keyframes kvRise{0%{transform:translate(0,0);opacity:0}15%{opacity:1}100%{transform:translate(var(--dx),-120px);opacity:0}}
+.kv-smoke{animation:kvSmoke 3s ease-out infinite;opacity:0}
+@keyframes kvSmoke{0%{transform:translate(0,0) scale(.6);opacity:0}20%{opacity:.5}100%{transform:translate(-10px,-90px) scale(1.6);opacity:0}}
+.kv-crown{transform-origin:100px 20px;animation:kvCrown 2s ease-in-out infinite}
+@keyframes kvCrown{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-4px) rotate(4deg)}}
+.kv-bubble{position:fixed;right:12px;bottom:calc(154px + env(safe-area-inset-bottom,0px));z-index:36;
+  max-width:min(300px,calc(100% - 24px));background:var(--card);border:1px solid rgba(192,124,255,.35);
+  border-radius:16px 16px 4px 16px;padding:12px 14px;font-size:15px;line-height:1.4;letter-spacing:-.2px;color:var(--text);
+  box-shadow:0 12px 32px rgba(0,0,0,.5);transform-origin:100% 100%;animation:kvPop .35s cubic-bezier(.3,1.5,.5,1)}
+.kv-bubble[hidden]{display:none}
+.kv-bubble small{display:block;font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--accent);margin-bottom:3px;font-family:var(--display);font-stretch:85%}
+.kv-bubble b{color:var(--accent)}
+.kv-bubble .kv-act{display:flex;gap:8px;margin-top:10px}
+.kv-bubble .kv-act button{flex:1;border:0;border-radius:10px;padding:9px 10px;font:600 14px var(--sans);cursor:pointer;background:var(--sunk);color:var(--text)}
+.kv-bubble .kv-act button.go{background:var(--accent);color:var(--accent-ink)}
+@keyframes kvPop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.kv-top{display:inline-flex;align-items:center;gap:3px;font-weight:700;font-size:15px;color:var(--text);margin-right:4px}
+.kv-top svg{width:14px;height:17px}
+.kv-confetti{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
+.kv-confetti i{position:absolute;width:8px;height:12px;border-radius:2px;opacity:0;animation:kvFall var(--t) cubic-bezier(.2,.6,.4,1) forwards}
+@keyframes kvFall{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),var(--y)) rotate(var(--r))}}
+.kv-puff{position:fixed;pointer-events:none;z-index:37;width:7px;height:7px;border-radius:50%;animation:kvPuff .9s ease-out forwards}
+@keyframes kvPuff{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--x),var(--y)) scale(.3)}}
+@media (prefers-reduced-motion:reduce){.kv-dock *,.kv-confetti,.kv-puff{animation:none!important}}
 </style>
 </head>
 <body>
@@ -235,13 +287,15 @@ a.link{color:var(--accent);text-decoration:none;font-weight:400;font-size:15px}
   <header class="top">
     <div class="brand"><i class="appicon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.2 13.6-3.4-3.4 1.4-1.4 2 2 4.6-4.6 1.4 1.4-6 6z"/></svg></i><b>AI Security</b><span>owasp llm top 10</span></div>
     <div class="topright">
-      <b id="todayCount">0/220</b><span>bugün</span>
+      <span class="kv-top" id="kvTop"></span><b id="todayCount">0/220</b><span>bugün</span>
       <span class="syncdot" id="syncDot" title="senkron"></span>
     </div>
   </header>
 
   <main id="view"></main>
   <button class="selchip" id="selChip" hidden></button>
+  <button class="kv-dock" id="kvDock" aria-label="Kıvılcım"></button>
+  <div class="kv-bubble" id="kvBubble" role="status" hidden></div>
 
   <nav class="tabs" role="tablist">
     <button class="tab" role="tab" data-tab="path" aria-selected="true">
@@ -612,6 +666,7 @@ function pickBatch(specs, n, area){
 
 function record(q, correct, sure){
   const p = state.progress;
+  const _kvBefore = {best: p.best_streak || 0, area: q.area || TOOL_AREA};
   if(p.daily.day !== today()) p.daily = {day:today(), per:{}, total:0};
   const rec = p.items[q.key] || {n:0, ok:0, bad:0, elim:0, box:1, last:null};
   rec.n++;
@@ -636,6 +691,7 @@ function record(q, correct, sure){
     p.last_day = today();
   }
   saveLocal(); scheduleSync(); paintTop();
+  try{ KV.onRecord(correct, sure, _kvBefore); }catch(e){}
 }
 
 function planRows(){
@@ -802,6 +858,7 @@ async function initDb(){
   }
   specs = buildSpecs();
   paintTop(); render();
+  try{ KV.paint(); }catch(e){}
   if(state.dirty) pushProgress();
 }
 
@@ -962,6 +1019,7 @@ function renderExamDone(){
       }).join("") + "</div>" : "") +
     "<div class='row' style='margin-top:12px'><button class='btn primary full' id='again'>Yeni sınav</button></div>";
   document.getElementById("again").onclick = () => { state.exam = null; render(); };
+  if(!ex._kv){ ex._kv = true; try{ KV.onExamDone(total, ex.sure); }catch(e){} }
   paintTop();
 }
 
@@ -1404,6 +1462,241 @@ document.querySelectorAll(".tab").forEach(b => b.onclick = () => {
   render();
 });
 
+
+/* ================= KIVILCIM — uygulamanın içindeki mini arkadaş =================
+   Serin kadar büyür, gelmediğinde küser; mesajlar senin gerçek verinden üretilir. */
+const KV = (() => {
+  const NS = "http://www.w3.org/2000/svg";
+  const PAL = [
+    ["#7a2a1a","#b0442a","#ff8a4c","#ffb07a","#ffd9b8"],
+    ["#8f52d6","#c07cff","#c07cff","#a88bff","#f3e9ff"],
+    ["#c05ad6","#c07cff","#c07cff","#7f8cff","#f3e9ff"],
+    ["#ff4a3d","#c07cff","#c07cff","#4a86ff","#f7efff"],
+    ["#ff4a3d","#ff6fb5","#c07cff","#4a86ff","#ffffff"]];
+  const SCALE = [.55, .72, .86, 1.0, 1.1];
+  const OUT = "M100 200C55 200 35 165 42 130C48 100 70 88 72 60C86 76 90 90 92 92C98 70 108 45 100 18C130 40 158 80 160 125C165 170 140 200 100 200Z";
+  const MID = "M100 196C66 196 52 168 58 138C63 116 80 106 82 86C92 100 95 108 95 108C102 90 112 72 108 52C128 72 146 100 146 134C148 170 128 196 100 196Z";
+  const CORE = "M100 192C80 192 70 176 73 158C76 142 88 134 92 120C100 132 104 136 104 136C110 124 116 112 116 100C128 116 134 136 132 154C130 178 118 192 100 192Z";
+  let mood = "wait", msgIdx = 0, lastAct = Date.now(), nudges = 0, bubbleTimer = null;
+
+  function daysAway(){ const p = state.progress; return p.last_day ? daysSince(p.last_day) : null; }
+  function effStreak(){ const d = daysAway(); return (d === null || d > 1) ? 0 : (state.progress.streak || 0); }
+  function level(s){ return s === 0 ? 0 : s < 3 ? 1 : s < 7 ? 2 : s < 30 ? 3 : 4; }
+  function calcMood(){
+    const d = daysAway();
+    if(d === null) return "new";
+    if(d === 0) return "happy";
+    if(d === 1) return "wait";
+    if(d === 2) return "sulk";
+    return "out";
+  }
+  function svg(){
+    return '<svg viewBox="0 0 200 230" aria-hidden="true"><defs>' +
+      '<linearGradient id="kvO" x1="0" y1="1" x2="0" y2="0"><stop offset="0" id="kvO1"/><stop offset="1" id="kvO2"/></linearGradient>' +
+      '<linearGradient id="kvM" x1="0" y1="1" x2="0" y2="0"><stop offset="0" id="kvM1"/><stop offset="1" id="kvM2"/></linearGradient>' +
+      '<filter id="kvB"><feGaussianBlur stdDeviation="7"/></filter><filter id="kvG"><feColorMatrix type="saturate" values="0.08"/></filter></defs>' +
+      '<g id="kvSparks"></g><g id="kvSmoke"></g><g class="kv-body" id="kvBody"><g class="kv-scale" id="kvScale">' +
+      '<ellipse cx="100" cy="205" rx="46" ry="7" fill="#000" opacity=".45"/>' +
+      '<g class="kv-flick"><path d="' + OUT + '" fill="url(#kvO)" filter="url(#kvB)" opacity=".55"/><path d="' + OUT + '" fill="url(#kvO)"/></g>' +
+      '<g class="kv-flick2"><path d="' + MID + '" fill="url(#kvM)"/><path id="kvCore" d="' + CORE + '" opacity=".92"/></g>' +
+      '<rect x="64" y="138" width="72" height="31" rx="15.5" fill="#0e0d12"/>' +
+      '<rect x="64" y="138" width="72" height="31" rx="15.5" fill="none" stroke="#c07cff" stroke-opacity=".35"/>' +
+      '<g class="kv-eyes" id="kvEyes"></g><g id="kvCheeks"></g>' +
+      '<g class="kv-crown" id="kvCrown" style="display:none"><path d="M78 22 L84 4 L92 16 L100 0 L108 16 L116 4 L122 22 Z" fill="#ffc15e" stroke="#0e0d12" stroke-width="2" stroke-linejoin="round"/><circle cx="100" cy="14" r="2.6" fill="#ff4a3d"/></g>' +
+      '</g></g></svg>';
+  }
+  function el(tag, attrs, parent){ const e = document.createElementNS(NS, tag);
+    for(const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+  function paintEyes(m){
+    const g = document.getElementById("kvEyes"); g.innerHTML = "";
+    const W = "#f3e9ff", ln = {stroke:W, "stroke-width":4, fill:"none", "stroke-linecap":"round"};
+    g.style.animation = (m === "happy" || m === "wait" || m === "new") ? "" : "none";
+    if(m === "happy"){ el("path", Object.assign({d:"M79 157 Q86 146 93 157"}, ln), g); el("path", Object.assign({d:"M107 157 Q114 146 121 157"}, ln), g); }
+    else if(m === "wait" || m === "new"){ const p = el("g", {"class":"kv-pupils"}, g);
+      el("circle", {cx:86, cy:153, r:6.5, fill:W}, p); el("circle", {cx:114, cy:153, r:6.5, fill:W}, p); }
+    else if(m === "sulk"){ el("path", Object.assign({d:"M79 152 L93 155"}, ln), g); el("path", Object.assign({d:"M107 155 L121 152"}, ln), g);
+      el("circle", {cx:90, cy:158, r:2.2, fill:W}, g); el("circle", {cx:118, cy:158, r:2.2, fill:W}, g); }
+    else { const s = {stroke:"#bdb6c8", "stroke-width":3.5, fill:"none", "stroke-linecap":"round"};
+      el("path", Object.assign({d:"M79 150 Q86 158 93 153"}, s), g); el("path", Object.assign({d:"M107 153 Q114 158 121 150"}, s), g);
+      el("path", {d:"M88 160 Q86 166 88 168 Q91 166 88 160", fill:"#7fb4ff"}, g); }
+    const ch = document.getElementById("kvCheeks"); ch.innerHTML = "";
+    if(m === "happy") [[72,164],[128,164]].forEach(([x,y]) => el("ellipse", {cx:x, cy:y, rx:6, ry:3, fill:"#ff6fb5", opacity:".55"}, ch));
+  }
+  function paint(){
+    const s = effStreak(), L = mood === "out" ? 0 : level(s), p = PAL[L];
+    const set = (id, c) => document.getElementById(id).setAttribute("stop-color", c);
+    set("kvO1", p[0]); set("kvO2", p[1]); set("kvM1", p[2]); set("kvM2", p[3]);
+    document.getElementById("kvCore").setAttribute("fill", p[4]);
+    const sc = document.getElementById("kvScale");
+    sc.style.transform = "scale(" + SCALE[L] * (mood === "sulk" ? .9 : 1) + ")";
+    sc.style.filter = mood === "out" ? "url(#kvG)" : (mood === "sulk" ? "saturate(.55)" : "none");
+    document.getElementById("kvBody").setAttribute("class", "kv-body " + mood);
+    document.getElementById("kvCrown").style.display = (L === 4 && mood !== "out") ? "" : "none";
+    const sg = document.getElementById("kvSparks"); sg.innerHTML = "";
+    const n = (mood === "out" || mood === "sulk") ? 0 : [0,2,5,8,12][L];
+    for(let i = 0; i < n; i++){
+      const c = el("circle", {cx:70 + Math.random()*60, cy:120 + Math.random()*50, r:1.6 + Math.random()*2.2,
+        fill:i % 3 === 0 ? "#ffc15e" : p[1], "class":"kv-spark"}, sg);
+      c.style.setProperty("--dx", (Math.random()*50 - 25) + "px");
+      c.style.animationDelay = (Math.random()*1.8) + "s"; c.style.animationDuration = (1.3 + Math.random()*1.2) + "s";
+    }
+    const sm = document.getElementById("kvSmoke"); sm.innerHTML = "";
+    if(mood === "out") for(let i = 0; i < 3; i++){ const c = el("circle", {cx:96 + i*4, cy:110, r:9, fill:"#6a6474", "class":"kv-smoke"}, sm); c.style.animationDelay = i + "s"; }
+    paintEyes(mood);
+    const top = document.getElementById("kvTop");
+    top.innerHTML = '<svg viewBox="40 10 130 200"><path d="' + OUT + '" fill="' + (mood === "out" ? "#6a6474" : p[1]) + '"/><path d="' + CORE + '" fill="' + p[4] + '" opacity=".85"/></svg>' + s;
+    top.title = s + " günlük seri";
+  }
+
+  /* ---- gerçek veriden mesaj ---- */
+  function facts(){
+    const p = state.progress, rows = planRows();
+    const done = rows.reduce((a, r) => a + r.done, 0);
+    const nxt = nextArea();
+    const weak = weakAreas(2);
+    const newQ = state.questions.filter(q => q.added === today() && !Object.keys(p.items).some(k => k.indexOf(q.id + "|") === 0)).length;
+    let lastBad = null;
+    Object.entries(p.items).forEach(([k, v]) => {
+      if(v.last_result === "bad" && (!lastBad || (v.last || "") > (lastBad[1].last || ""))) lastBad = [k, v];
+    });
+    let badName = null;
+    if(lastBad){
+      const id = lastBad[0].split("|")[0], a = findAttack(id);
+      badName = a ? a.technique : null;
+    }
+    const answered = state.notes.filter(n => (n.answer || "").trim() && n.answered_day === today()).length;
+    const openNotes = state.notes.filter(n => !(n.answer || "").trim()).length;
+    return {done, goal: GOAL * AREAS.length, nxt, left: nxt ? GOAL - ((p.daily.per || {})[nxt] || 0) : 0,
+            weak, newQ, badName, answered, openNotes, streak: effStreak(), best: p.best_streak || 0, away: daysAway()};
+  }
+  function messages(){
+    const f = facts(), out = [];
+    const B = s => "<b>" + esc(s) + "</b>";
+    if(mood === "new"){
+      out.push("Selam! Ben " + B("Kıvılcım") + ". Her gün soru çözdükçe büyürüm, gelmezsen sönerim. İlk soruyla yak beni 🔥");
+      out.push("Günde " + B(f.goal + " soru") + " hedefimiz var ama 20 soruyla başlasak bile yanarım.");
+    } else if(mood === "happy"){
+      if(f.done >= f.goal) out.push(B(f.goal + "/" + f.goal) + "! Bugün her alanı bitirdin. Efsanesin 👑");
+      else out.push("Bugün " + B(f.done + " soru") + " çözdün. " + (f.nxt ? "Sırada " + B(f.nxt) + ", " + f.left + " soru kaldı." : ""));
+      out.push("Seri " + B(f.streak + " gün") + "! " + (f.streak >= f.best && f.streak > 1 ? "Rekorundasın, bak alevime!" : "Rekorun " + f.best + ", yaklaşıyoruz."));
+      if(f.badName) out.push("En son " + B(f.badName) + "'da takıldın. Birkaç gün sonra başka açıdan tekrar soracağım 😏");
+    } else if(mood === "wait"){
+      out.push("Bugün daha gelmedin… " + (f.streak ? B(f.streak + " günlük") + " serin gece yarısı söner!" : "") + " 20 soru, 10 dakika.");
+      if(f.newQ) out.push("Sabah " + B(f.newQ + " yeni soru") + " geldi, ilk sen çöz.");
+      if(f.answered) out.push("Notlarından " + B(f.answered) + " tanesine cevap geldi. Rapor sekmesinde seni bekliyor.");
+      if(f.weak.length) out.push("En zayıf alanın " + B(f.weak[0]) + ". Bugün oraya yüklenelim mi?");
+    } else if(mood === "sulk"){
+      out.push("Dün gelmedin. " + B("Hmph."));
+      out.push("…");
+      out.push("Serimiz söndü sayılır. " + (f.weak.length ? B(f.weak[0]) + " soruların hazır, bir tur çözersen affederim belki." : "Bir tur çözersen affederim belki."));
+    } else {
+      out.push("Ben burada tek başıma yandım durdum 🥲");
+      out.push(B(f.away + " gündür") + " yoksun. Tek bir soru yeter, yeniden yanarım.");
+      if(f.newQ || f.openNotes) out.push("Bu arada " + (f.newQ ? B(f.newQ + " yeni soru") : "") + (f.newQ && f.openNotes ? " ve " : "") + (f.openNotes ? B(f.openNotes + " açık not") : "") + " birikti.");
+    }
+    return out.filter(Boolean);
+  }
+  const TITLE = {new:"KIVILCIM", happy:"KIVILCIM · MUTLU", wait:"KIVILCIM · BEKLİYOR", sulk:"KIVILCIM · KÜS", out:"KIVILCIM · SÖNÜYOR"};
+
+  function say(html, opts){
+    opts = opts || {};
+    const b = document.getElementById("kvBubble");
+    b.innerHTML = "<small>" + (opts.title || TITLE[mood]) + "</small>" + html +
+      (opts.action !== false ? "<div class='kv-act'><button class='go' id='kvGo'>" + (opts.goText || "Sınava başla") + "</button><button id='kvLater'>Sonra</button></div>" : "");
+    b.hidden = false; b.style.animation = "none"; void b.offsetWidth; b.style.animation = "";
+    const go = document.getElementById("kvGo"), later = document.getElementById("kvLater");
+    if(go) go.onclick = () => { hide(); (opts.onGo || goExam)(); };
+    if(later) later.onclick = hide;
+    clearTimeout(bubbleTimer);
+    bubbleTimer = setTimeout(hide, opts.ms || 9000);
+  }
+  function hide(){ document.getElementById("kvBubble").hidden = true; }
+  function goExam(){ document.querySelector('.tab[data-tab="exam"]').click(); }
+  function anim(cls){
+    const b = document.getElementById("kvBody");
+    b.setAttribute("class", "kv-body " + cls);
+    setTimeout(() => b.setAttribute("class", "kv-body " + mood), 650);
+  }
+  function puff(n, colors){
+    const r = document.getElementById("kvDock").getBoundingClientRect();
+    for(let i = 0; i < n; i++){
+      const d = document.createElement("i"); d.className = "kv-puff";
+      d.style.left = (r.left + r.width/2) + "px"; d.style.top = (r.top + r.height*0.35) + "px";
+      d.style.background = colors[i % colors.length];
+      d.style.setProperty("--x", (Math.random()*90 - 60) + "px"); d.style.setProperty("--y", (-40 - Math.random()*70) + "px");
+      document.body.appendChild(d); setTimeout(() => d.remove(), 1000);
+    }
+  }
+  function confetti(){
+    const box = document.createElement("div"); box.className = "kv-confetti";
+    const C = ["#ff4a3d","#c07cff","#4a86ff","#ffc15e","#7fd6a4","#ff6fb5"];
+    const W = innerWidth;
+    for(let i = 0; i < 70; i++){
+      const c = document.createElement("i");
+      c.style.left = (W/2 + (Math.random()*80 - 40)) + "px"; c.style.top = (innerHeight*0.55) + "px";
+      c.style.background = C[i % C.length];
+      c.style.setProperty("--x", (Math.random()*W - W/2) + "px");
+      c.style.setProperty("--y", (-innerHeight*0.25 - Math.random()*innerHeight*0.35 + Math.random()*innerHeight*0.6) + "px");
+      c.style.setProperty("--r", (Math.random()*720 - 360) + "deg");
+      c.style.setProperty("--t", (1.1 + Math.random()*0.9) + "s");
+      box.appendChild(c);
+    }
+    document.body.appendChild(box); setTimeout(() => box.remove(), 2300);
+  }
+
+  /* ---- olaylar ---- */
+  function init(){
+    document.getElementById("kvDock").innerHTML = svg();
+    mood = calcMood(); paint();
+    document.getElementById("kvDock").onclick = () => {
+      const b = document.getElementById("kvBubble");
+      if(!b.hidden){ hide(); return; }
+      const m = messages(); say(m[msgIdx++ % m.length]); anim(mood === "sulk" ? "shake" : "jump");
+    };
+    let greeted = false;
+    try{ greeted = sessionStorage.getItem("kv-greet") === today(); }catch(e){}
+    if(!greeted){
+      setTimeout(() => { say(messages()[0]); try{ sessionStorage.setItem("kv-greet", today()); }catch(e){} }, 1400);
+    }
+    ["click","touchstart","keydown"].forEach(ev => document.addEventListener(ev, () => lastAct = Date.now(), {passive:true}));
+    setInterval(() => {                                   // uygulama açık ama boşta: dürt
+      const f = facts();
+      if(document.hidden || nudges >= 2 || f.done >= f.goal || state.exam && !state.exam.done) return;
+      if(Date.now() - lastAct < 4*60*1000) return;
+      nudges++; lastAct = Date.now();
+      say(f.done ? "Mola uzadı 👀 " + (f.nxt ? "<b>" + f.nxt + "</b>'de " + f.left + " soru kaldı." : "")
+                 : "Buradayım, bekliyorum… Bir tur çözelim mi? 🔥");
+      anim("jump");
+    }, 30000);
+  }
+  function onRecord(correct, sure, before){
+    const p = state.progress;
+    const was = mood; mood = "happy";
+    if(was !== "happy"){ paint(); anim("jump");
+      if(was === "sulk" || was === "out") say("Geldin! 🥹 Küslük bitti, yeniden yanıyorum.", {action:false, ms:4500});
+      else if(p.streak > 1) say("Seri <b>" + p.streak + " gün</b> oldu! 🔥", {action:false, ms:4000});
+      else say("Ateş yandı! İlk soru tamam 🔥", {action:false, ms:4000});
+      if(p.streak > (before.best || 0) && p.streak > 1) setTimeout(() => { confetti(); say("Yeni rekor: <b>" + p.streak + " gün</b>! 👑", {action:false, ms:5000}); }, 1200);
+      return;
+    }
+    if(correct && sure){ anim("jump"); puff(8, ["#c07cff","#ffc15e","#ff4a3d"]); }
+    else if(!correct) anim("shake");
+    const area = before.area, per = (p.daily.per || {})[area] || 0;
+    if(per === GOAL){ confetti(); say("<b>" + area + "</b> bugünlük bitti (" + GOAL + "/" + GOAL + ")! Sıradaki alana geçelim mi?", {action:false, ms:5500}); }
+    const done = planRows().reduce((a, r) => a + r.done, 0);
+    if(done === GOAL * AREAS.length){ setTimeout(() => { confetti(); confetti(); say("<b>220/220</b>. Bugün bütün alanları bitirdin. Taç senin 👑", {action:false, ms:7000}); }, 900); }
+    paint();
+  }
+  function onExamDone(total, sure){
+    if(!total) return;
+    const pct = Math.round(sure/total*100);
+    if(pct >= 80){ confetti(); say("Gerçek bilgi oranın <b>%" + pct + "</b>. Alevim bundan büyüyor 🔥", {goText:"Yeni sınav"}); }
+    else if(pct >= 50) say("%" + pct + " gerçek bilgi. Fena değil; yanlışların birkaç gün sonra başka açıdan gelecek.", {goText:"Yeni sınav"});
+    else say("%" + pct + "… Üzülme, ben de ilk başta kordum. Çalışman gerekenler aşağıda 👇", {action:false});
+  }
+  return {init, onRecord, onExamDone, paint: () => { mood = calcMood(); paint(); }};
+})();
+
 /* ================= başlat ================= */
 const local = loadLocal();
 if(local) state.progress = mergeProgress(state.progress, local);
@@ -1411,6 +1704,7 @@ state.notes = loadNotesLocal();
 specs = buildSpecs();
 paintTop();
 render();
+try{ KV.init(); }catch(e){}
 setDot("", "senkron bekleniyor");
 initDb();
 document.addEventListener("visibilitychange", () => { if(document.hidden && state.dirty) pushProgress(); });
