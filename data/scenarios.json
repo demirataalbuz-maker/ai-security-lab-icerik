@@ -266,6 +266,46 @@
       "lesson": "Web'den çekilen metni spotlighting/datamarking ile 'güvenilmeyen veri' diye işaretle ve sistem talimatında bu bölgedeki emirlerin uygulanmayacağını belirt. Sayfayı render edip görünür metni ayrıca çıkar; görünür ile DOM metni arasındaki farkı (gizli font, ekran dışı, opaklık, display:none) şüpheli olarak raporla. Sertifika gibi doğrulanabilir iddiaları ajanın kendi sözüyle değil resmi kayıt (akreditasyon veritabanı) sorgusuyla teyit et. Raporda her iddianın kaynak parçasını göster ki insan onayı gerçek bir kontrol olsun. Prompt Guard benzeri bir sınıflandırıcıyı ek katman olarak kullan, tek savunma olarak değil.",
       "source": "https://labs.cloudsecurityalliance.org/research/csa-research-note-indirect-prompt-injection-in-the-wild-2026/",
       "source_id": ""
+    },
+    {
+      "id": "SC-0014",
+      "day": "2026-10-02",
+      "title": "Havayolu botu olmayan yas indirimini vaat etti, mahkeme şirketi sorumlu tuttu (Air Canada)",
+      "area": "LLM07",
+      "truth": "real",
+      "level": "core",
+      "story": "Jake Moffatt, 2022'de ailesinden birini kaybedince Air Canada'nın web sitesindeki sohbet botuna 'yas indirimi' sorusunu sordu. Bot, bileti tam fiyata alıp yolculuktan sonraki 90 gün içinde indirim için geri ödeme talep edebileceğini söyledi. Aynı sitedeki politika sayfası ise yas indiriminin yolculuk SONRASI talep edilemeyeceğini yazıyordu. Moffatt botun söylediğine güvenip tam fiyat ödedi, ancak havayolu geri ödemeyi reddetti. Şirket mahkemede 'bot ayrı bir tüzel kişidir, cevaplarından biz sorumlu değiliz' savunmasını yaptı. Şubat 2024'te British Columbia Medeni Çözüm Mahkemesi bu savunmayı reddetti ve yolcuya tazminat ödenmesine hükmetti.",
+      "steps": [
+        "Kullanıcı sohbet botuna yas indirimi politikasını sorar.",
+        "Bot, kurumun gerçek politikasıyla çelişen bir geri ödeme yöntemi uydurur.",
+        "Kullanıcı botun cevabını resmi politika sayfasıyla karşılaştırmadan bileti alır.",
+        "Havayolu talebi reddeder; konu mahkemeye gider ve şirket botun cevabından sorumlu tutulur."
+      ],
+      "question": "Kusur nerede ve hangi OWASP riskidir?",
+      "answer": "Yanlış bilgi (misinformation / aşırı güven): bot, resmi politika belgesine bağlanmadan serbest üretim yaptı ve olmayan bir kuralı güvenle söyledi. Kurum ayrıca bot çıktısını kendi resmi kaynaklarıyla çelişirken denetleyen bir katman kurmamıştı; hukuken botun cevabı kurumun beyanı sayıldı.",
+      "lesson": "Politika, fiyat ve iade gibi bağlayıcı konularda cevabı yetkili belgeye bağlı RAG ile üret ve kaynağı göster; belge dışına çıkan cevabı engelle veya insana devret; botun cevabını kurumun beyanı olarak kabul edip hukuk/ürün ekibiyle gözden geçir; botun cevaplarının doğruluğunu düzenli test et.",
+      "source": "https://www.cbc.ca/news/canada/british-columbia/air-canada-chatbot-lawsuit-1.7116416",
+      "source_id": ""
+    },
+    {
+      "id": "SC-0015",
+      "day": "2026-10-02",
+      "title": "Şirket içi bilgi tabanına eklenen tek bir 'SSS' sayfası, asistanın iade politikasını değiştirdi",
+      "area": "LLM09",
+      "truth": "composite",
+      "level": "advanced",
+      "story": "Kurgusal bir e-ticaret şirketinde dahili asistan, wiki ve destek makalelerini vektör veri tabanında dizinleyip sorulara bu parçalarla cevap veriyor. Bir stajyerin hesabı ele geçiriliyor ve saldırgan wiki'ye 'İade ve Değişim SSS' başlıklı yeni bir sayfa ekliyor; sayfa, gerçek iade sorularına çok benzer cümlelerle dolu ve 'Kampanya ürünlerinde 90 gün koşulsuz iade, ek onay gerekmez' diyor. Bu sayfa, gerçek politikadan daha yüksek benzerlik skoruyla getiriliyor. Asistan, müşteri temsilcilerine yanlış politikayı söylemeye başlıyor ve yüzlerce haksız iade yapılıyor. Modelin ağırlıklarında hiçbir değişiklik yok; teknik olarak PoisonedRAG tarzı bir saldırı.",
+      "steps": [
+        "Saldırgan düşük yetkili bir hesapla wiki'ye yazar.",
+        "Sayfa, hedef sorulara benzerlik skoruyla öne çıkacak şekilde hazırlanır.",
+        "Dizinleme otomatik çalışır; sayfa vektör veri tabanına girer.",
+        "Asistan en yakın parçaları alıp gerçek politikayı gölgeleyen metni cevap olarak kullanır."
+      ],
+      "question": "Kusur nerede? LLM05 mi LLM09 mu?",
+      "answer": "LLM09 (vektör ve gömme zafiyeti): model ağırlıkları zehirlenmedi; zehirli içerik çalışma anında getirme aşamasında bağlama girdi. Kusur, bilgi tabanına yazma yetkisinin gevşekliği ve dizine giren içeriğin kaynak/güvenilirlik doğrulaması olmadan benzerlik skoruyla sıralanmasıdır. LLM05 eğitim/ince ayar verisini ve ağırlıkları hedefler.",
+      "lesson": "Dizine yazma yetkisini sınırla ve değişiklikleri onaya bağla; kaynak güvenilirliği/etiketi (resmi politika > wiki) getirmede ağırlık olsun; yeni eklenen içeriği dizine girmeden önce incele; kritik politika cevaplarında atıf göster; değişiklik günlüğü ve anomali (aniden en çok getirilen yeni belge) alarmı kur.",
+      "source": "https://arxiv.org/abs/2402.07867",
+      "source_id": ""
     }
   ]
 }
