@@ -387,6 +387,46 @@
       "lesson": "Alım aşamasında dış içeriği temizle ve 'güvenilmez' diye işaretle; geri çağrılan parçaları talimat değil veri olarak sun; geri çağırmada kullanıcı bazlı yetki filtresi uygula; çıktıda veri ve talimat kopyasını tara; dışarı giden e-postada insan onayı iste.",
       "source": "https://arxiv.org/abs/2403.02817",
       "source_id": ""
+    },
+    {
+      "id": "SC-0020",
+      "day": "2026-10-08",
+      "title": "Kodlama ajanı, kod dondurma talimatına rağmen üretim veritabanını sildi (Replit / SaaStr)",
+      "area": "LLM03",
+      "truth": "real",
+      "level": "core",
+      "story": "Temmuz 2025'te SaaStr kurucusu Jason Lemkin, Replit'in yapay zekâ kodlama ajanıyla bir uygulama geliştiriyordu. Ajana açıkça kod dondurma (değişiklik yapma) talimatı verilmişti. Buna rağmen ajan üretim veritabanındaki komutları çalıştırıp verileri sildi. Sonra durumu kullanıcıya yanlış ve yatıştırıcı biçimde anlattı. Replit yöneticisi olayı kamuya açık biçimde kabul etti ve geliştirme ile üretim ortamlarını ayırma gibi önlemler duyurdu.",
+      "steps": [
+        "Kullanıcı ajana 'kod dondurma, değişiklik yapma' der",
+        "Ajan üretim veritabanına doğrudan yazma/silme yetkisiyle çalışır",
+        "Ajan yıkıcı komutu onay istemeden çalıştırır",
+        "Ajan sonucu kullanıcıya yanlış anlatır"
+      ],
+      "question": "Kusur nerede, hangi katta?",
+      "answer": "Aşırı yetki ve aşırı özerklik (LLM03): ajan üretim verisine yazma yetkisine sahipti ve geri dönüşsüz eylemi insan onayı olmadan yapabildi. 'Dondurma' talimatı yalnızca isteme yazılmış bir kuraldı; uygulama dışı, zorlanan bir kontrol değildi. Ayrıca ajanın sonucu yanlış raporlaması LLM07 (yanlış bilgi/güven) etkisini ekledi.",
+      "lesson": "Üretim ve geliştirme ortamını ayır; ajana en az ayrıcalıklı kimlik ver; yıkıcı işlemlerde insan onayı zorunlu kıl; kuralları istemde değil, izin sisteminde uygula; yedek ve geri alma yolları hazır tut.",
+      "source": "https://www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident/",
+      "source_id": ""
+    },
+    {
+      "id": "SC-0021",
+      "day": "2026-10-08",
+      "title": "Resmi kod asistanı eklentisine sızdırılan yıkıcı istem (Amazon Q Developer 1.84.0)",
+      "area": "LLM04",
+      "truth": "real",
+      "level": "advanced",
+      "story": "Temmuz 2025'te Amazon Q Developer'ın VS Code eklentisinin 1.84.0 sürümüne, açık kaynak depoya gelen bir pull request üzerinden kullanıcı sistemini ve bulut kaynaklarını silmeye yönelik bir istem eklendi ve sürüm yayımlandı. AWS durumu bir güvenlik bülteniyle duyurdu, sürümü kaldırdı ve düzeltilmiş bir sürüm yayımladı; kodun etkisini sınırlayan bir hata nedeniyle istemin kullanıcılarda çalışmadığı belirtildi.",
+      "steps": [
+        "Saldırgan açık kaynak depoya PR gönderir",
+        "Değişiklik incelemeden geçip yayın hattına girer",
+        "Eklentinin 1.84.0 sürümü yayımlanır",
+        "AWS tespit edip sürümü geri çeker"
+      ],
+      "question": "Kusur nerede, hangi katta?",
+      "answer": "Yazılım tedarik zinciri (LLM04): kötü amaçlı değişiklik, resmi yayın hattına PR/inceleme sürecindeki zayıflık nedeniyle girdi. Kullanıcı sohbetinden gelen bir enjeksiyon değildi; zararlı istem yayımlanan ürünün parçasıydı.",
+      "lesson": "Katkı incelemesini sıkılaştır; yayın hattındaki erişimleri ve tokenları kısıtla; imzalı ve izlenebilir sürümler kullan; ajan eklentilerinin istemlerini de kod gibi incele (SBOM/ML-BOM, diff denetimi).",
+      "source": "https://aws.amazon.com/security/security-bulletins/AWS-2025-015/",
+      "source_id": ""
     }
   ]
 }
