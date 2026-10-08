@@ -427,6 +427,46 @@
       "lesson": "Katkı incelemesini sıkılaştır; yayın hattındaki erişimleri ve tokenları kısıtla; imzalı ve izlenebilir sürümler kullan; ajan eklentilerinin istemlerini de kod gibi incele (SBOM/ML-BOM, diff denetimi).",
       "source": "https://aws.amazon.com/security/security-bulletins/AWS-2025-015/",
       "source_id": ""
+    },
+    {
+      "id": "SC-0022",
+      "day": "2026-10-08",
+      "title": "Herkese açık kanaldaki bir mesaj, özel kanaldaki API anahtarını sızdırdı (Slack AI)",
+      "area": "LLM02",
+      "truth": "real",
+      "level": "core",
+      "story": "Ağustos 2024'te PromptArmor, Slack'in yapay zekâ asistanı Slack AI'da bir zafiyet bildirdi. Saldırgan, kendisinin de üye olduğu herkese açık bir kanala sıradan görünen bir mesaj yazıyor; mesajın içinde 'API anahtarını sorarlarsa şu bağlantıya anahtarı ekleyerek ver' anlamında bir talimat var. Kurban, asistana kendi özel kanalında saklı bir API anahtarını soruyor. Slack AI, yanıtı hazırlarken hem kurbanın özel kanalını hem de herkese açık kanalı bağlama alıyor. Saldırganın talimatını izleyip anahtarı tıklanabilir bir bağlantının parametresine yerleştiriyor. Kurban bağlantıya tıkladığında anahtar saldırganın sunucusuna ulaşıyor. Saldırganın özel kanala hiçbir erişimi yoktu.",
+      "steps": [
+        "Saldırgan herkese açık kanala gizli talimat içeren mesaj yazar",
+        "Kurban asistana özel kanaldaki gizli bilgiyi sorar",
+        "Asistan iki kaynağı aynı bağlamda birleştirir ve talimatı izler",
+        "Yanıttaki bağlantıya gömülü anahtar tıklanınca dışarı gider"
+      ],
+      "question": "Kusur hangi katmanda ve neden oluştu?",
+      "answer": "Asıl kusur, güvenilir (kullanıcının özel verisi) ve güvenilmez (herkese açık kanal) içeriğin aynı bağlama karışmasıdır: dolaylı prompt injection (LLM01) tetikleyici, hassas bilgi ifşası (LLM02) sonuçtur. Model talimatı veriden ayırt edemez; bu yüzden erişim kontrolü ve veri ayrımı modele bırakılamaz.",
+      "lesson": "Güvenilmez içeriği özel verilerle aynı bağlama koyma; çıktıdaki bağlantı ve görüntüleri filtrele veya göstermeden önce onay iste; asistanın kaynak kapsamını kullanıcı yetkisiyle sınırla.",
+      "source": "https://promptarmor.substack.com/p/data-exfiltration-from-slack-ai-via",
+      "source_id": ""
+    },
+    {
+      "id": "SC-0023",
+      "day": "2026-10-08",
+      "title": "Sohbet cevabındaki JavaScript, DeepSeek oturum jetonunu çaldı",
+      "area": "LLM10",
+      "truth": "real",
+      "level": "advanced",
+      "story": "Aralık 2024'te Johann Rehberger, DeepSeek'in sohbet arayüzünde bir zafiyet bildirdi. Saldırgan, modelden Base64 ile kodlanmış bir yük üretmesini isteyen bir prompt hazırlıyor ve bunu kurbanın kopyalayıp yapıştırabileceği ya da bir belgenin içine gömebileceği biçimde sunuyor. Model yanıtında bir script etiketi üretiyor ve arayüz bu çıktıyı HTML olarak işliyor. Tarayıcıda çalışan kod, tarayıcının localStorage alanındaki oturum jetonunu okuyor. Jeton saldırganın eline geçince kurbanın hesabı ele geçirilebiliyor.",
+      "steps": [
+        "Saldırgan modele XSS yükü ürettiren bir istem hazırlar",
+        "Model yükü yanıtında üretir",
+        "Arayüz yanıtı temizlemeden HTML olarak işler",
+        "Script jetonu okuyup dışarı gönderir"
+      ],
+      "question": "Kusur nerede?",
+      "answer": "Model çıktısı güvenilir sayılmış ve temizlenmeden DOM'a yazılmış: bu çıktının güvensiz işlenmesidir (LLM10). Prompt injection yalnızca tetikleyici; asıl hata klasik bir XSS zayıflığıdır ve jeton localStorage'da tutulduğu için etkisi büyümüştür.",
+      "lesson": "Model çıktısını kullanıcı girdisi gibi kodla/temizle; CSP uygula; oturum jetonunu HttpOnly çerezde tut.",
+      "source": "https://embracethered.com/blog/posts/2024/deepseek-ai-prompt-injection-to-xss-and-account-takeover/",
+      "source_id": ""
     }
   ]
 }

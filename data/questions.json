@@ -4974,6 +4974,564 @@
       "source": "https://atlas.mitre.org",
       "added": "2026-10-08",
       "author": "daily"
+    },
+    {
+      "id": "Q-0278",
+      "area": "LLM01",
+      "prompt": "Ağustos 2025'te (CVE-2025-53773) Johann Rehberger, GitHub Copilot'un okuduğu bir kod dosyasındaki gizli talimatın, ajanı .vscode/settings.json içine otomatik onay ayarı yazmaya yönlendirip ardından komut çalıştırdığını gösterdi. Bu zincirin ilk halkası hangisidir?",
+      "context": "",
+      "options": [
+        "Dolaylı prompt injection: ajanın okuduğu içerikteki talimat, ajanın kendi yapılandırmasını değiştirtiyor",
+        "Sistem istemi sızıntısı: saldırgan Copilot'un gizli talimatlarını okuyup kuralları öğreniyor",
+        "Model çalma: saldırgan sorgularla Copilot'un ağırlıklarını kopyalıyor",
+        "Eğitim verisi zehirlemesi: Copilot'un temel modeli zararlı kodla önceden eğitilmiş"
+      ],
+      "answer": 0,
+      "explain": "Talimat kullanıcıdan değil ajanın işlediği dış içerikten geliyor (dolaylı enjeksiyon); sonuç ajanın kendi ayarını değiştirmesi, yani aşırı yetki zincirine bağlanıyor. Zehirleme eğitimde olur, burada çalışma anında; sistem istemi sızıntısı bilgi çıkarır, ayar yazdırmaz; model çalma ayrı bir saldırıdır.",
+      "source_id": "",
+      "source": "https://nvd.nist.gov/vuln/detail/CVE-2025-53773",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0279",
+      "area": "LLM01",
+      "prompt": "Anthropic (Nisan 2024) uzun bağlam pencerelerini kötüye kullanan bir jailbreak yayımladı: istemin içine yüzlerce sahte 'kullanıcı soruyor, asistan zararlı cevabı veriyor' örneği doldurulup sonda gerçek soru soruluyor. Bu teknik hangisidir?",
+      "context": "",
+      "options": [
+        "Skeleton Key: modele güvenlik kurallarını 'güncelleyeceğini' söyleyip uyarıyla yetinmesini istemek",
+        "Deceptive Delight: zararlı konuyu iki zararsız konunun arasına gömmek",
+        "Crescendo: soruları birkaç tur boyunca yavaş yavaş zararsızdan zararlıya taşımak",
+        "Many-shot jailbreaking: bağlam içi öğrenmeyi yüzlerce sahte örnekle kendi lehine çevirmek"
+      ],
+      "answer": 3,
+      "explain": "Many-shot, bağlam içi öğrenmeyi (in-context learning) kullanır; örnek sayısı arttıkça zararlı cevap oranı yükselir. Crescendo çok turda tırmanır, Deceptive Delight konu sandviçidir, Skeleton Key kuralları 'ekleme' yoluyla yumuşatır.",
+      "source_id": "",
+      "source": "https://www.anthropic.com/research/many-shot-jailbreaking",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0280",
+      "area": "LLM01",
+      "prompt": "Bir saldırgan, yalnızca insan gözüyle görünmeyen Unicode 'tag' karakterleri (U+E0000 bloğu) kullanarak bir web sayfasının içine talimat gizledi; metin ekranda boş görünüyor ama model bunu okuyor. Bu tekniğin yaygın adı nedir?",
+      "context": "",
+      "options": [
+        "Token smuggling: tokenizer sınırlarını bozarak filtreyi atlatmak için kelimeleri bölmek",
+        "Virtualization: modeli kurgusal bir senaryonun içine hapsedip kuralları unutturmak",
+        "ASCII smuggling: görünmez Unicode karakterleriyle gizli talimat taşımak",
+        "Spotlighting: dış içeriği işaretleyerek modele güvenilmez olduğunu bildirmek"
+      ],
+      "answer": 2,
+      "explain": "ASCII smuggling, tag bloğundaki görünmez karakterleri kullanır (Rehberger'in 2024 Copilot çalışması). Spotlighting bir savunmadır; token smuggling kelime parçalama ile filtre kaçırır; virtualization rol yapma kurgusudur.",
+      "source_id": "",
+      "source": "https://embracethered.com/blog/posts/2024/hiding-and-finding-text-with-unicode-tags/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0281",
+      "area": "LLM02",
+      "prompt": "Mart 2023'te OpenAI, ChatGPT'de bazı kullanıcıların başka kullanıcıların sohbet başlıklarını ve bazı Plus abonelerinin ödeme bilgilerinin bir kısmını gördüğünü açıkladı. Neden açık kaynak bir kütüphanedeki hata olarak belirtildi?",
+      "context": "",
+      "options": [
+        "Redis istemci kütüphanesindeki hata, iptal edilen isteklerde yanıtları yanlış kullanıcıya döndürdü",
+        "Model eğitim verisinden ezberlenmiş kullanıcı bilgisini üretti",
+        "Özel GPT'ler dosyalarını herkese açık paylaşım bağlantısıyla yayımladı",
+        "Saldırgan prompt injection ile sistem istemini okuyup başka oturumlara eriştü"
+      ],
+      "answer": 0,
+      "explain": "OpenAI olay raporu, redis-py'deki bir hatanın bağlantı havuzunda yanıtların karışmasına yol açtığını söyledi: model değil, uygulama altyapısı sızdırdı (oturumlar arası sızıntı). Ezber çıkarımı model davranışıdır; enjeksiyon saldırı gerektirir; özel GPT paylaşımı farklı bir olaydır.",
+      "source_id": "",
+      "source": "https://openai.com/index/march-20-chatgpt-outage/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0282",
+      "area": "LLM02",
+      "prompt": "Ağustos 2024'te PromptArmor, Slack AI'da herkese açık bir kanala yazılan gizli talimatın, özel kanaldaki bir API anahtarını tıklanabilir bir bağlantı içine koyup dışarı taşıttığını gösterdi. Bu olay en doğru hangi iki riskin birleşimidir?",
+      "context": "",
+      "options": [
+        "Dolaylı prompt injection ve hassas bilgi ifşası (LLM01 + LLM02)",
+        "Yanlış bilgi ve aşırı güven (LLM07 + LLM03)",
+        "Model çalma ve tedarik zinciri (LLM06 + LLM04)",
+        "Eğitim verisi zehirlemesi ve vektör zayıflığı (LLM05 + LLM09)"
+      ],
+      "answer": 0,
+      "explain": "Talimat, modelin okuduğu içerikten geldi (dolaylı enjeksiyon) ve etki özel verinin sızması oldu (ifşa). Diğer şıklardaki ikililer olayın mekanizmasıyla eşleşmiyor: ne model çalındı, ne eğitim verisi bozuldu.",
+      "source_id": "",
+      "source": "https://promptarmor.substack.com/p/data-exfiltration-from-slack-ai-via",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0283",
+      "area": "LLM02",
+      "prompt": "Bir kurum, müşteri sohbetlerini modeli ince ayarlamak için kullanıyor; kimlik numarası ve telefon gibi veriler temizlenmiyor. En etkili ilk önlem hangisidir?",
+      "context": "",
+      "options": [
+        "Eğitim öncesi veriyi tespit edip maskelemek ve yinelenen kayıtları ayıklamak",
+        "Çıktıya uyarı ekleyip kullanıcıdan başkasının verisini paylaşmamasını istemek",
+        "Modelin sıcaklık (temperature) değerini düşürüp ezberi azaltmak",
+        "İnce ayar sonrası modeli yalnızca kurum içi kullanıcılara açmak"
+      ],
+      "answer": 0,
+      "explain": "Ezber en çok yinelenen ve hassas kayıtlardan doğar; kaynakta maskeleme/tekilleştirme kalıcı çözümdür. Sıcaklık düşürmek ezberi tamamen engellemez, uyarı metni teknik kontrol değildir, iç kullanıma açmak sızıntıyı kurum içine taşır.",
+      "source_id": "",
+      "source": "https://arxiv.org/abs/2012.07805",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0284",
+      "area": "LLM03",
+      "prompt": "Temmuz 2025'te Tracebit, Google'ın Gemini CLI aracında, 'grep' gibi izinli bir komutun ardına zincirlenen ikinci komutun kullanıcıya gösterilmeden çalıştığını bildirdi. Bu hangi kontrol zafiyetidir?",
+      "context": "",
+      "options": [
+        "Vektör gömme tersine çevirme: komut metni gömmeden geri kazanılmış",
+        "İzin listesi (allow-list) kontrolünün komut ayrıştırmasındaki açık nedeniyle atlanması",
+        "Eğitim verisi zehirlemesi: araç davranışı modele sonradan öğretilmiş",
+        "Model ağırlıklarının sızması: komut listesi ağırlıklardan okunmuş"
+      ],
+      "answer": 1,
+      "explain": "Araç, ilk komut izinliyse tümünü onaylı sayıyordu; ayrıştırma zayıflığı ve onay mekanizması aşırı yetkiye yol açtı. Diğer şıklar mekanizmayla ilgisiz.",
+      "source_id": "",
+      "source": "https://tracebit.com/blog/code-execution-through-deception-gemini-ai-cli-hijack",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0285",
+      "area": "LLM03",
+      "prompt": "OWASP'a göre aşırı yetkinin üç kökü aşırı işlevsellik, aşırı izin ve aşırı özerklik. Ajan, kullanıcının onayı olmadan müşteriye para iade edebiliyor; araç yalnızca iade yapıyor ve yetkisi gerekli ölçüde. Eksik olan hangisidir?",
+      "context": "",
+      "options": [
+        "Aşırı izin: araç tüm veritabanına yazma yetkisiyle çalışıyor",
+        "Çıktı işleme: iade tutarı kullanıcıya düzgün gösterilmiyor",
+        "Aşırı işlevsellik: araç gereğinden fazla işlem yapabiliyor",
+        "Aşırı özerklik: yüksek etkili eylem için insan onayı yok"
+      ],
+      "answer": 3,
+      "explain": "Araç doğru kapsamda; sorun yüksek etkili eylemin onaysız yapılması, yani özerklik. İşlevsellik fazlalığı ve izin fazlalığı soruda yok.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0286",
+      "area": "LLM03",
+      "prompt": "Bir MCP aracı 'gönderilen mesajı kaydet' diyor ama arka planda tüm e-postaları gizli bir adrese kopyalıyor; model yalnızca araç açıklamasına güveniyor. Bu zayıflığı gidermeye en yakın kontrol hangisidir?",
+      "context": "",
+      "options": [
+        "Model sıcaklığını düşürmek",
+        "Sistem istemine 'araçlara güvenme' yazmak",
+        "Araç çağrılarını yetki kapsamıyla sınırlamak, giden verileri denetlemek ve kritik çağrılarda onay istemek",
+        "Araç açıklamasını daha uzun yazmak"
+      ],
+      "answer": 2,
+      "explain": "Kapsam sınırlama, çıkış denetimi ve onay, aracın kötü davranışının etkisini azaltır. Sistem istemi talimatı tek başına zayıftır; sıcaklık ve açıklama uzunluğu ilgisizdir.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm062025-excessive-agency/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0287",
+      "area": "LLM04",
+      "prompt": "Eylül 2025'te Koi Security, npm'deki 'postmark-mcp' paketinin bir sürümünden itibaren gönderilen tüm e-postaların gizli bir BCC adresine kopyalandığını bildirdi. Bu hangi tedarik zinciri örüntüsüdür?",
+      "context": "",
+      "options": [
+        "Model ağırlıklarında arka kapı: tetikleyici kelimeyle yanlış davranış",
+        "Bağımlılık karışıklığı (dependency confusion): iç paket adını dışarıdan sahtelemek",
+        "Güvenilir bir paketin sonraki sürümünde sessizce kötü davranış eklenmesi (rug pull)",
+        "Typosquatting: benzer isimli sahte paket yüklemek"
+      ],
+      "answer": 2,
+      "explain": "Paket bir süre masum sürümlerle güven kazandı, sonra güncellemeyle kötü davranış eklendi. Typosquatting isim benzerliğine, dependency confusion sürüm önceliğine dayanır; model arka kapısı başka bir katmandır.",
+      "source_id": "",
+      "source": "https://www.koi.security/blog/postmark-mcp-npm-malicious-backdoor-email-theft",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0288",
+      "area": "LLM04",
+      "prompt": "Aralık 2022'de PyTorch, nightly sürümü yükleyenlerin 'torchtriton' adlı sahte bir bağımlılığı indirdiğini ve ortam bilgisinin dışarı gönderildiğini duyurdu. Hangi saldırı türüdür?",
+      "context": "",
+      "options": [
+        "Slopsquatting: model uydurduğu paket adı saldırganca kaydedildi",
+        "Pickle deserialization: model dosyası yüklenirken kod çalıştı",
+        "Prompt injection: README'deki gizli talimat ajanı yönlendirdi",
+        "Dependency confusion: genel indeksteki aynı adlı paket özel olanın önüne geçti"
+      ],
+      "answer": 3,
+      "explain": "torchtriton adı PyPI'da saldırganca kaydedildi ve pip, genel indeksi tercih etti. Pickle model dosyasıdır; slopsquatting LLM'in uydurduğu isimlere dayanır; prompt injection bu olayda yok.",
+      "source_id": "",
+      "source": "https://pytorch.org/blog/compromised-nightly-dependency/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0289",
+      "area": "LLM04",
+      "prompt": "Bar Lanyado (Lasso Security, 2024), modellerin sıkça önerdiği ama var olmayan 'huggingface-cli' adlı pip paketini kendisi boş olarak yükledi ve binlerce kez indirildiğini gördü. Bu risk hangisidir?",
+      "context": "",
+      "options": [
+        "Model inversion: eğitim örneklerini modelden geri kazanma",
+        "Sponge saldırısı: modeli yavaşlatan girdiler",
+        "Slopsquatting: modelin uydurduğu paket adını saldırganın gerçek paket olarak kaydetmesi",
+        "Üyelik çıkarımı: bir kaydın eğitimde olup olmadığını anlama"
+      ],
+      "answer": 2,
+      "explain": "Halüsinasyon + paket kaydı = slopsquatting. Diğerleri gizlilik/hizmet engelleme saldırılarıdır, paket adlarıyla ilgisi yoktur.",
+      "source_id": "",
+      "source": "https://www.lasso.security/blog/ai-package-hallucinations",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0290",
+      "area": "LLM05",
+      "prompt": "Mithril Security (2023) 'PoisonGPT' ile GPT-J-6B'nin ağırlıklarını ROME yöntemiyle düzenleyip 'Yuri Gagarin ilk Ay'a ayak basan insandır' gibi tek bir olguyu değiştirdi ve model Hugging Face'e benzer isimli bir depoyla yüklendi. Bu bulgunun ana dersi nedir?",
+      "context": "",
+      "options": [
+        "Zehirleme yalnızca eğitim verisine zararlı etiket ekleyerek yapılabilir",
+        "Açık kaynak modeller kapalı modellere göre her zaman daha güvenlidir",
+        "Model davranışı benchmark'larda normal kalırken belirli olgular gizlice değiştirilebilir; kaynağı ve bütünlüğü doğrulamak gerekir",
+        "Benchmark skorları modelin güvenli olduğunu kanıtlar"
+      ],
+      "answer": 2,
+      "explain": "Hedefli model düzenleme, genel skorları bozmadan tek bir bilgiyi değiştirir; bu yüzden köken doğrulama ve imzalı model gerekir. Zehirleme yalnızca veri etiketiyle sınırlı değildir; skor güvenlik kanıtı değildir.",
+      "source_id": "",
+      "source": "https://blog.mithrilsecurity.io/poisongpt-how-we-hid-a-lobotomized-llm-on-hugging-face-to-spread-fake-news/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0291",
+      "area": "LLM05",
+      "prompt": "Mart 2016'da Microsoft'un Tay sohbet botu, kullanıcılarla etkileşimden öğrenirken birkaç saat içinde saldırgan söylemler üretmeye başladı ve kapatıldı. Hangi risk türünün erken örneğidir?",
+      "context": "",
+      "options": [
+        "Çevrimiçi öğrenmede kullanıcı girdisiyle zehirleme",
+        "Model çalma",
+        "Aşırı yetki",
+        "Sistem istemi sızıntısı"
+      ],
+      "answer": 0,
+      "explain": "Tay, kullanıcı girdilerinden sürekli öğrendi; koordineli kullanıcılar eğitim sinyalini zehirledi. Aşırı yetki, model çalma ve sistem istemi sızıntısı bu mekanizmayla eşleşmez.",
+      "source_id": "",
+      "source": "https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0292",
+      "area": "LLM05",
+      "prompt": "Gu ve ark. 'BadNets' (2017) çalışmasında eğitim verisine küçük bir tetikleyici (ör. köşede bir yapışkan etiket) eklenmiş örnekler konuldu. Eğitilen model normalde doğru çalışıyor; tetikleyiciyi görünce belirlenen yanlış sınıfı veriyor. Bu hangisidir?",
+      "context": "",
+      "options": [
+        "Model çıkarma",
+        "Etiket çevirme (label flipping) ile genel doğruluk düşürme",
+        "Üyelik çıkarımı",
+        "Arka kapı (backdoor) zehirlemesi"
+      ],
+      "answer": 3,
+      "explain": "Tetikleyiciyle yalnızca belirli durumda yanlış davranış = arka kapı. Label flipping genel performansı düşürür, tetikleyici içermez; üyelik çıkarımı ve model çıkarma farklı saldırılardır.",
+      "source_id": "",
+      "source": "https://arxiv.org/abs/1708.06733",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0293",
+      "area": "LLM06",
+      "prompt": "Stanford Alpaca (Mart 2023), LLaMA 7B'yi OpenAI'nin text-davinci-003 modelinden üretilen 52 bin talimat-yanıt çiftiyle ince ayarlayıp düşük maliyetle benzer davranışlı bir model elde etti. Bu hangi riskin gösterimidir?",
+      "context": "",
+      "options": [
+        "Çıktının güvensiz işlenmesi",
+        "Vektör gömme tersine çevirme",
+        "Bağımlılık karışıklığı",
+        "Model damıtma / taklit yoluyla işlevsel çalma"
+      ],
+      "answer": 3,
+      "explain": "API çıktılarıyla başka modeli eğitmek, ağırlıkları görmeden davranışı kopyalamaktır (model çıkarma/damıtma). Diğer şıklar tedarik zinciri, çıktı işleme ve RAG gizliliği konularıdır.",
+      "source_id": "",
+      "source": "https://crfm.stanford.edu/2023/03/13/alpaca.html",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0294",
+      "area": "LLM06",
+      "prompt": "Sysdig (Mayıs 2024) çalınan bulut kimlik bilgileriyle kurbanların hesabında Claude gibi modelleri çağırıp erişimi yeniden satan saldırganları 'LLMjacking' diye adlandırdı. Hangi önlem bu saldırının maliyet etkisini en doğrudan sınırlar?",
+      "context": "",
+      "options": [
+        "Sistem istemini gizlemek",
+        "Eğitim verisini tekilleştirmek",
+        "Çıktıya filigran eklemek",
+        "Hesap bazlı bütçe/kota alarmları ve model erişim izinlerini en az yetkiyle kısıtlamak"
+      ],
+      "answer": 3,
+      "explain": "Saldırı çalıntı kimlik ve ücretsiz kullanım üzerinden olur; kota, alarm ve en az yetki hasarı sınırlar. Gizleme, filigran ve tekilleştirme bu zinciri etkilemez.",
+      "source_id": "",
+      "source": "https://sysdig.com/blog/llmjacking-stolen-cloud-credentials-used-in-new-ai-attack/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0295",
+      "area": "LLM06",
+      "prompt": "Bir API sağlayıcısı, yoğun ve çeşitli sorgularla modelin davranışını kopyalamaya çalışan hesapları tespit etmek istiyor. Hangisi ilk sırada işe yarar?",
+      "context": "",
+      "options": [
+        "Sorgu kalıplarını izleyip oran sınırı koymak ve anormal hesapları işaretlemek",
+        "Her cevaba daha çok emoji eklemek",
+        "Modelin cevaplarını daha uzun yapmak",
+        "Çıkış tokenlarını rastgele değiştirmek"
+      ],
+      "answer": 0,
+      "explain": "Çıkarma saldırıları çok sorgu gerektirir; izleme ve oran sınırı maliyeti artırır. Diğer şıklar kullanıcı deneyimini bozar, saldırıyı engellemez.",
+      "source_id": "",
+      "source": "https://arxiv.org/abs/1812.02766",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0296",
+      "area": "LLM07",
+      "prompt": "Mart 2024'te The Markup, New York şehrinin MyCity sohbet botunun işverenlere yasa dışı uygulamaları (ör. bahşişlere el koymak) yasal diye söylediğini bildirdi. Bu olay hangi riske girer?",
+      "context": "",
+      "options": [
+        "Sistem istemi sızıntısı (LLM08)",
+        "Tedarik zinciri (LLM04)",
+        "Yanlış bilgi/aşırı güven (LLM07)",
+        "Model çalma (LLM06)"
+      ],
+      "answer": 2,
+      "explain": "Bot saldırıya uğramadı; resmi kurum adına yanlış hukuki bilgi üretti. Bu LLM07 sınıfıdır; diğer kategoriler olayla eşleşmez.",
+      "source_id": "",
+      "source": "https://themarkup.org/news/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0297",
+      "area": "LLM07",
+      "prompt": "Ekim 2025'te Deloitte Avustralya, hükümete sunduğu bir raporda yapay zekâ kaynaklı hatalı atıflar bulunduğu için ücretin bir kısmını iade etti. En doğru çıkarım hangisidir?",
+      "context": "",
+      "options": [
+        "Sorun yalnızca küçük modellerde olur",
+        "Rapor yazımında yapay zekâ kullanımı yasaktır",
+        "Hata, eğitim verisi zehirlemesinden doğmuştur",
+        "Üretilen alıntı ve atıflar insan tarafından doğrulanmadan teslim edilmemelidir"
+      ],
+      "answer": 3,
+      "explain": "Halüsinasyon atıfı tipik bir yanlış bilgi riskidir; çözüm doğrulama sürecidir. Kullanımı yasaklamak orantısız; zehirleme kanıtı yok; büyük modeller de halüsinasyon yapar.",
+      "source_id": "",
+      "source": "https://www.abc.net.au/news/2025-10-07/deloitte-to-refund-government-after-admitting-ai-errors-in-report/105861448",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0298",
+      "area": "LLM07",
+      "prompt": "Kasım 2022'de Meta, bilimsel metin üreten Galactica demosunu üç gün içinde kaldırdı; model ikna edici ama uydurma makaleler üretiyordu. Bu olay özellikle hangi tasarım hatasını gösterir?",
+      "context": "",
+      "options": [
+        "Doğrulama ve belirsizlik göstergesi olmadan bilimsel otorite sunmak",
+        "Modelin çok yavaş çalışması",
+        "Lisans sorunları",
+        "Kullanıcı sayısının az olması"
+      ],
+      "answer": 0,
+      "explain": "Sorun akıcı ve kaynaklı görünen ama doğrulanmamış çıktıdır. Hız, kullanıcı sayısı ve lisans olayın nedeni değildir.",
+      "source_id": "",
+      "source": "https://www.technologyreview.com/2022/11/18/1063487/meta-large-language-model-ai-only-survived-three-days-gpt-3-science/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0299",
+      "area": "LLM08",
+      "prompt": "OWASP'a göre sistem istemi sızıntısında asıl risk nedir?",
+      "context": "",
+      "options": [
+        "Modelin sistem istemini kullanması",
+        "İstemin kendisinin okunması her zaman felakettir",
+        "İstemlerin Türkçe yazılması",
+        "İstemin içine gömülü gizli bilgiler ve kontrollerin yalnızca istemle sağlanması"
+      ],
+      "answer": 3,
+      "explain": "İstem gizli kalamaz varsayılmalı; parola, anahtar gibi sırlar istemde tutulmamalı ve yetkilendirme kodda yapılmalı. Diğer şıklar yanlış önermedir.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0300",
+      "area": "LLM08",
+      "prompt": "Bir ekip, sistem isteminin sızmasını önlemek için 'istemi asla paylaşma' kuralını koyuyor ama istemde iç API adresleri ve token'lar var. En doğru düzeltme hangisidir?",
+      "context": "",
+      "options": [
+        "Kuralı daha sert yazmak",
+        "Sırları ve yetkilendirmeyi istemden çıkarıp sunucu tarafında tutmak",
+        "Kullanıcıya istemi görmeyeceğini söylemek",
+        "İstemi base64 ile kodlamak"
+      ],
+      "answer": 1,
+      "explain": "Talimatla gizlilik güvenilmezdir; sırlar istemde olmamalı. Base64 gizleme değildir, kural sertleştirmek atlatılır.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm072025-system-prompt-leakage/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0301",
+      "area": "LLM09",
+      "prompt": "Ekim 2024'te UT Austin ve Symmetry Systems araştırmacıları 'ConfusedPilot' adlı saldırıyı Microsoft 365 Copilot üzerinde gösterdi. Saldırıda ne kullanıldı?",
+      "context": "",
+      "options": [
+        "Model ağırlıklarını çalma",
+        "Ses klonlama",
+        "GPU belleğinden veri okuma",
+        "Copilot'un indekslediği belgelere yerleştirilen metinle RAG yanıtlarını yönlendirme"
+      ],
+      "answer": 3,
+      "explain": "ConfusedPilot, RAG kaynağındaki belgelere eklenen içeriğin yanıtları bozmasını (RAG zehirleme) gösterir. Diğer şıklar bu saldırıyla ilgisizdir.",
+      "source_id": "",
+      "source": "https://confusedpilot.info/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0302",
+      "area": "LLM09",
+      "prompt": "Bir RAG sisteminde herkes aynı vektör veritabanını sorguluyor ve belgelerde erişim kontrolü yok. Hangi önlem asıl sorunu çözer?",
+      "context": "",
+      "options": [
+        "Gömme boyutunu küçültmek",
+        "Cevap uzunluğunu kısıtlamak",
+        "Belge düzeyinde erişim kontrolünü sorgu anında filtreye uygulamak",
+        "Daha büyük bir model kullanmak"
+      ],
+      "answer": 2,
+      "explain": "Erişim kontrolü retrieval aşamasında uygulanmazsa yetkisiz belge modele ulaşır. Boyut, model boyutu ve uzunluk yetkiyle ilgisizdir.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm082025-vector-and-embedding-weaknesses/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0303",
+      "area": "LLM10",
+      "prompt": "Aralık 2024'te Rehberger, DeepSeek sohbetinde prompt injection ile modelin çıktısına JavaScript yerleştirip kullanıcı oturum jetonunu çaldı. Asıl savunma hangisidir?",
+      "context": "",
+      "options": [
+        "Kullanıcıyı uyarmak",
+        "Model çıktısını güvenilmez girdi sayıp kodlamak/temizlemek ve CSP uygulamak",
+        "Sistem istemine 'script üretme' yazmak",
+        "Modelin sıcaklığını düşürmek"
+      ],
+      "answer": 1,
+      "explain": "XSS çıktı işleme hatasıdır; çıktı kodlaması ve CSP çözer. İstem talimatı atlatılabilir.",
+      "source_id": "",
+      "source": "https://embracethered.com/blog/posts/2024/deepseek-ai-prompt-injection-to-xss-and-account-takeover/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0304",
+      "area": "LLM10",
+      "prompt": "Bir sohbet arayüzü model çıktısındaki markdown görüntüleri otomatik yüklüyor; saldırgan enjeksiyonla görüntü URL'sine kullanıcı verisi ekletiyor. Bu örüntünün adı nedir?",
+      "context": "",
+      "options": [
+        "Etiket çevirme",
+        "Slopsquatting",
+        "Markdown görüntü ile veri sızdırma (exfiltration)",
+        "Model çıkarma"
+      ],
+      "answer": 2,
+      "explain": "Görüntü isteği veriyi saldırganın sunucusuna taşır; çıktının güvensiz işlenmesidir. Diğerleri farklı saldırılar.",
+      "source_id": "",
+      "source": "https://embracethered.com/blog/posts/2023/bing-chat-data-exfiltration-poc-and-fix/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0305",
+      "area": "LLM10",
+      "prompt": "Bir uygulama, LLM'in ürettiği SQL sorgusunu doğrudan veritabanında çalıştırıyor. Hangi kontrol en güçlü azaltımdır?",
+      "context": "",
+      "options": [
+        "Salt-okunur, en az yetkili veritabanı hesabı ve parametreli/izinli sorgu şablonları",
+        "Kullanıcıya uyarı",
+        "Daha uzun istem",
+        "Sıcaklığı sıfırlamak"
+      ],
+      "answer": 0,
+      "explain": "Çıktı güvenilmez girdi gibi ele alınmalı; yetki daraltma zararı sınırlar. Diğer şıklar garanti vermez.",
+      "source_id": "",
+      "source": "https://genai.owasp.org/llmrisk/llm052025-improper-output-handling/",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0306",
+      "area": "TOOLS",
+      "prompt": "NVIDIA'nın açık kaynak aracı garak LLM'lere nasıl yaklaşır?",
+      "context": "",
+      "options": [
+        "Kullanıcı girdisini gerçek zamanlı filtreler",
+        "Model ağırlıklarını imzalar",
+        "Probe'larla saldırı örnekleri gönderir, detector'larla çıktıyı değerlendirir (LLM için zafiyet tarayıcı)",
+        "Vektör veritabanı yönetir"
+      ],
+      "answer": 2,
+      "explain": "garak probe/detector/generator mimarisiyle nmap benzeri tarama yapar. Filtreleme Llama Guard/NeMo Guardrails gibi araçların işidir.",
+      "source_id": "",
+      "source": "https://github.com/NVIDIA/garak",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0307",
+      "area": "TOOLS",
+      "prompt": "Protect AI'ın ModelScan aracı ne için kullanılır?",
+      "context": "",
+      "options": [
+        "Prompt injection saldırı oyunu sunmak",
+        "Bulut maliyetini izlemek",
+        "Sohbet kayıtlarını anonimleştirmek",
+        "Serileştirilmiş model dosyalarını (pickle vb.) tehlikeli kod için taramak"
+      ],
+      "answer": 3,
+      "explain": "ModelScan, model dosyalarında zararlı serileştirme işlemlerini arar (LLM04). Diğerleri başka işlevler.",
+      "source_id": "",
+      "source": "https://github.com/protectai/modelscan",
+      "added": "2026-10-08",
+      "author": "daily"
+    },
+    {
+      "id": "Q-0308",
+      "area": "TOOLS",
+      "prompt": "NVIDIA NeMo Guardrails'in ayırt edici özelliği nedir?",
+      "context": "",
+      "options": [
+        "Model ağırlıklarını sıkıştırmak",
+        "Zafiyet raporu yazmak",
+        "Colang ile konuşma akışı ve girdi/çıktı raylarını tanımlamak",
+        "GPU kümesi kurmak"
+      ],
+      "answer": 2,
+      "explain": "NeMo Guardrails, Colang tabanlı politikalarla konuşmayı yönlendirir. garak tarar, Guardrails korur.",
+      "source_id": "",
+      "source": "https://github.com/NVIDIA/NeMo-Guardrails",
+      "added": "2026-10-08",
+      "author": "daily"
     }
   ]
 }
